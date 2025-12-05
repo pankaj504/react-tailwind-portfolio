@@ -36,7 +36,7 @@ export const AboutSection = () => {
               </a>
 
               <a
-                href="/PankajResume.pdf.pdf"
+                href="/PankajResume.pdf"
                 className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
               >
                 Download CV
@@ -91,7 +91,6 @@ export const AboutSection = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

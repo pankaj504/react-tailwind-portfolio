@@ -11,11 +11,13 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import emailjs from "@emailjs/browser"
+import emailjs from "@emailjs/browser";
 const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = (e) => {
+    console.log("variableName:", e);
+
     e.preventDefault();
     emailjs
       .sendForm(
@@ -47,7 +49,8 @@ const ContactSection = () => {
           Get In<span className="text-primary"> Touch</span>
         </h2>
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Looking for a React Developer ? I’d be excited to collaborate. Let’s connect!
+          Looking for a React Developer ? I’d be excited to collaborate. Let’s
+          connect!
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-8">
@@ -101,14 +104,15 @@ const ContactSection = () => {
                 <a href="https://www.linkedin.com/in/pankaj-lohani-dev">
                   <Linkedin />
                 </a>{" "}
-                <a href="https://www.instagram.com/panku.lohani/" target="_blank">
+                <a
+                  href="https://www.instagram.com/panku.lohani/"
+                  target="_blank"
+                >
                   <Instagram />
                 </a>{" "}
-               
                 <a href="https://github.com/pankaj504" target="_blank">
                   <Github />
                 </a>{" "}
-               
               </div>
             </div>
           </div>
