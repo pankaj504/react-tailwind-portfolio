@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
+
 const navItems = [
   {
     name: "Home",
@@ -38,7 +40,7 @@ const Navbar = () => {
     <nav
       className={cn(
         "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
+        isScrolled ? "py-3 glass" : "py-5 bg-transparent"
       )}
     >
       <div className="container flex items-center justify-between">
@@ -52,7 +54,7 @@ const Navbar = () => {
         </a>
 
         {/* {desktop} */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item, key) => (
             <a
               href={item.href}
@@ -62,15 +64,19 @@ const Navbar = () => {
               {item.name}
             </a>
           ))}
+          <ThemeToggle />
         </div>
         {/* mobile */}
-        <button
-          className="md:hidden p-2 text-foreground z-50"
-          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"} aria-labelledby={isMenuOpen ? "Close Menu" : "Open Menu"}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <ThemeToggle />
+          <button
+            className="p-2 text-foreground z-50"
+            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"} aria-labelledby={isMenuOpen ? "Close Menu" : "Open Menu"}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
         <div
           className={cn(
             "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",

@@ -53,9 +53,9 @@ const ContactSection = () => {
           connect!
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-8">
+          <div className="space-y-8 flex flex-col justify-center">
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
-            <div className="space-y-6 justify-center">
+            <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="p-3 rounded-full bg-primary/10 ">
                   <Mail className="h-6 w-6 text-primary" />
@@ -100,7 +100,7 @@ const ContactSection = () => {
             </div>
             <div className="pt-8">
               <h4 className="font-medium mb-4">Connect With Me</h4>
-              <div className="flex space-x-4 justify-center">
+              <div className="flex space-x-4">
                 <a href="https://www.linkedin.com/in/pankaj-lohani-dev">
                   <Linkedin />
                 </a>{" "}
@@ -116,7 +116,7 @@ const ContactSection = () => {
               </div>
             </div>
           </div>
-          <div className="bg-card p-8 rounded-lg shadow-xs">
+          <div className="glass p-8 rounded-xl border-none">
             <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -130,7 +130,7 @@ const ContactSection = () => {
                   type="text"
                   name="from_name"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background"
+                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                   placeholder="John Cartel..."
                 />
               </div>
@@ -146,7 +146,7 @@ const ContactSection = () => {
                   type="email"
                   name="from_email"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background"
+                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                   placeholder="John@gmail.com"
                 />
               </div>
@@ -161,8 +161,9 @@ const ContactSection = () => {
                 <textarea
                   name="message"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-primary resize-none"
-                  placeholder="Hello I'd to talk about..."
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
+                  placeholder="Hello I'd like to talk about..."
                 />
               </div>
               <button
@@ -172,7 +173,7 @@ const ContactSection = () => {
                   "cosmic-button w-full flex items-center justify-center gap-2"
                 )}
               >
-                {isSubmitting ? "Sending" : "  Send Message"}
+                {isSubmitting ? "Sending..." : "Send Message"}
 
                 <Send size={16} />
               </button>

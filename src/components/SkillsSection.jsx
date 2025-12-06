@@ -9,7 +9,7 @@ const skills = [
   { name: "Tailwind CSS", level: 50, category: "frontend" },
 
   // Backend
-  
+
 
   // Tools
   { name: "Git/GitHub", level: 60, category: "tools" },
@@ -52,22 +52,19 @@ export const SkillsSection = () => {
           {filteredSkills.map((skill, key) => (
             <div
               key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
+              className="glass p-6 rounded-xl card-hover border-none"
             >
-              <div className="text-left mb-4">
+              <div className="flex justify-between items-center mb-4">
                 <h3 className="font-semibold text-lg"> {skill.name}</h3>
-              </div>
-              <div className="w-full bg-secondary/50 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
-                  style={{ width: skill.level + "%" }}
-                />
-              </div>
-
-              <div className="text-right mt-1">
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm font-medium text-primary">
                   {skill.level}%
                 </span>
+              </div>
+              <div className="w-full bg-secondary/50 h-2.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-linear-to-r from-primary to-purple-400 h-full rounded-full origin-left animate-[grow_1.5s_ease-out]"
+                  style={{ width: skill.level + "%" }}
+                />
               </div>
             </div>
           ))}

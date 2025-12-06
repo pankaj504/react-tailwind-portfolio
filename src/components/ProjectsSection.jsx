@@ -59,7 +59,7 @@ export const ProjectsSection = () => {
           {projects.map((project, key) => (
             <div
               key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              className="group glass rounded-lg overflow-hidden card-hover border-none"
             >
               <div className="h-48 overflow-hidden">
                 <img

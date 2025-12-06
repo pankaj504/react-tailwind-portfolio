@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 // context
-export const ThemeToggle = () => {
+export const ThemeToggle = ({ className }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Runs only once (initial value)
     const saved = localStorage.getItem("theme");
@@ -24,8 +24,8 @@ export const ThemeToggle = () => {
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
         className={cn(
-          "fixed top-5 right-16 sm:right-5 z-50 p-2 rounded-full transition-colors duration-300",
-          "focus:outline-hidden cursor-pointer"
+          "p-2 rounded-full transition-colors duration-300 focus:outline-hidden cursor-pointer",
+          className
         )}
       >
         {isDarkMode ? (
