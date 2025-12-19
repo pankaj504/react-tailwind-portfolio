@@ -33,8 +33,11 @@ export const StarBackground = () => {
     setMeteors(newMeteors);
   }, []);
   useEffect(() => {
-    generateStars();
-    generateMeteors();
+    const timer = setTimeout(() => {
+      generateStars();
+      generateMeteors();
+    }, 0);
+
     let resizeFrame;
     const onResize = () => {
       cancelAnimationFrame(resizeFrame);
@@ -44,10 +47,11 @@ export const StarBackground = () => {
     return () => {
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(resizeFrame);
+      clearTimeout(timer);
     };
   }, [generateStars, generateMeteors]);
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 star-background">
       {stars.map((star) => (
         <div
           key={star.id}

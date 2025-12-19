@@ -1,6 +1,6 @@
 import React from "react";
-import { } from "@/components/StarBackground";
-import { StarBackground } from "../components/StarBackground";
+
+import { Logo } from "../components/Logo";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
@@ -13,7 +13,9 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* {Background effect} */}
-      <StarBackground />
+
+      {/* {Logo} */}
+      <Logo />
       {/* {Navbar} */}
       <Navbar />
       {/* {Main Content} */}

@@ -1,188 +1,135 @@
-import {
-  Facebook,
-  Github,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapIcon,
-  Phone,
-  Send,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
-const ContactSection = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+import { RevealOnScroll } from "./RevealOnScroll";
+import { User, Mail, MessageSquare, Send, Phone } from "lucide-react";
+
+export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    message: "",
+  });
+
   const handleSubmit = (e) => {
-    console.log("variableName:", e);
-
     e.preventDefault();
-    emailjs
-      .sendForm(
-        "service_9io7ajj",
-        "template_6c0tnhw",
-        e.target,
-        "XHRU6qKqKDFrlSYAN"
-      )
-      .then(() => {
-        toast({
-          title: "Message Sent!",
-          description: "hank you! I'll get back to you soon.",
-        });
-        setIsSubmitting(false);
-      })
-      .catch((error) => {
-        toast({
-          title: "Email Failed",
-          description: "Something went wrong. Please try again.",
-        });
-        console.error(error);
-        setIsSubmitting(false);
-      });
+
+    emailjs.sendForm(
+      import.meta.env.VITE_SERVICE_ID,
+      import.meta.env.VITE_TEMPLATE_ID,
+      e.target,
+      import.meta.env.VITE_PUBLIC_KEY
+    ).then(() => {
+      alert("Message sent!");
+      setFormData({ name: "", email: "", mobile: "", message: "" });
+    }).catch(() => {
+      alert("Oops! Something went wrong. Please try again.");
+    });
   };
+
   return (
-    <section id="contact" className="py-24 px-4 relative bg-secondary/30">
-      <div className=" container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In<span className="text-primary"> Touch</span>
-        </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Looking for a React Developer ? I’d be excited to collaborate. Let’s
-          connect!
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-8 flex flex-col justify-center">
-            <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
-                  <Mail className="h-6 w-6 text-primary" />
-                </div>
-                <div className="">
-                  <h4 className="font-medium">Email</h4>
-                  <a
-                    href="mailto:pankajlohani504@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    pankajlohani504@gmail.com
-                  </a>
-                </div>
-              </div>
+    <section id="contact" className="min-h-screen flex items-center justify-center py-10 px-4 bg-background relative overflow-hidden">
+      <RevealOnScroll>
+        {/* Main Container */}
+        <div className="w-full max-w-5xl flex flex-col md:flex-row bg-[#0a0a0a] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(168,85,247,0.2)] border border-white/5 mx-auto">
 
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div className="">
-                  <h4 className="font-medium">Phone</h4>
-                  <a
-                    href="tel:(+91)7505303805"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    (+91)7505303805
-                  </a>
-                </div>
-              </div>
+          {/* Left Column (Abstract Graphic) */}
+          <div className="w-full md:w-1/2 relative bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] flex flex-col justify-center items-center p-12 text-center md:text-left overflow-hidden">
+            {/* Abstract Shapes */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10 ">
-                  <MapIcon className="h-6 w-6 text-primary" />
-                </div>
-                <div className="">
-                  <h4 className="font-medium">Location</h4>
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Delhi,India
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="pt-8">
-              <h4 className="font-medium mb-4">Connect With Me</h4>
-              <div className="flex space-x-4">
-                <a href="https://www.linkedin.com/in/pankaj-lohani-dev">
-                  <Linkedin />
-                </a>{" "}
-                <a
-                  href="https://www.instagram.com/panku.lohani/"
-                  target="_blank"
-                >
-                  <Instagram />
-                </a>{" "}
-                <a href="https://github.com/pankaj504" target="_blank">
-                  <Github />
-                </a>{" "}
-              </div>
+            <div className="relative z-10 space-y-6">
+              <User className="w-20 h-20 text-white/20 mx-auto md:mx-0 mb-4" />
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+                Welcome.
+              </h2>
+              <p className="text-gray-400 text-lg max-w-sm mx-auto md:mx-0">
+                Looking to build something amazing? Let's connect and turn your ideas into reality.
+              </p>
             </div>
           </div>
-          <div className="glass p-8 rounded-xl border-none">
-            <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Your Name
-                </label>
+
+          {/* Right Column (Form) */}
+          <div className="w-full md:w-1/2 p-8 md:p-12 bg-[#050505] flex flex-col justify-center">
+            <h3 className="text-2xl font-bold mb-8 text-white">Get In Touch</h3>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name Input */}
+              <div className="relative group">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-500 transition-colors">
+                  <User size={20} />
+                </div>
                 <input
                   type="text"
-                  name="from_name"
+                  name="name"
+                  placeholder="Your Name"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                  placeholder="John Cartel..."
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-5 py-4 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600"
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="Email"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Your Email
-                </label>
+              {/* Email Input */}
+              <div className="relative group">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-500 transition-colors">
+                  <Mail size={20} />
+                </div>
                 <input
                   type="email"
-                  name="from_email"
+                  name="email"
+                  placeholder="Your Email"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                  placeholder="John@gmail.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-5 py-4 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600"
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Your Message
-                </label>
+              {/* Mobile Input */}
+              <div className="relative group">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-500 transition-colors">
+                  <Phone size={20} />
+                </div>
+                <input
+                  type="tel"
+                  name="mobile"
+                  placeholder="Your Mobile Number"
+                  required
+                  value={formData.mobile}
+                  onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-5 py-4 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600"
+                />
+              </div>
+
+              {/* Message Input */}
+              <div className="relative group">
+                <div className="absolute left-4 top-5 text-gray-500 group-focus-within:text-purple-500 transition-colors">
+                  <MessageSquare size={20} />
+                </div>
                 <textarea
                   name="message"
-                  required
+                  placeholder="Your Message"
                   rows={4}
-                  className="w-full px-4 py-3 rounded-md border border-white/10 bg-white/5 focus:bg-white/10 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
-                  placeholder="Hello I'd like to talk about..."
+                  required
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-5 py-4 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600 resize-none"
                 />
               </div>
+
+              {/* Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className={cn(
-                  "cosmic-button w-full flex items-center justify-center gap-2"
-                )}
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-
-                <Send size={16} />
+                Send Message <Send size={20} />
               </button>
             </form>
           </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
-};
-
-export default ContactSection;
+}

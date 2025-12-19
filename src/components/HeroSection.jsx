@@ -1,42 +1,156 @@
-import { ArrowDown } from "lucide-react";
-import React from "react";
+import { RevealOnScroll } from "./RevealOnScroll";
+import ParticleBackground from "./ParticleBackground";
+import { useEffect, useState } from "react";
+import {
+  ArrowDown,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  Twitter,
+} from "lucide-react";
 
-const HeroSection = () => {
+export default function HeroSection() {
+  const [text, setText] = useState("");
+  const fullText = ["Web Developer", "React Developer", "React Enthusiast"];
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [blink, setBlink] = useState(true);
+
+  // Typewriter Effect
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => {
+        if (index >= fullText.length) {
+          setIndex(0);
+          return;
+        }
+
+        const currentFullText = fullText[index];
+
+        if (isDeleting) {
+          setText(currentFullText.substring(0, subIndex - 1));
+          setSubIndex((prev) => prev - 1);
+        } else {
+          setText(currentFullText.substring(0, subIndex + 1));
+          setSubIndex((prev) => prev + 1);
+        }
+
+        if (!isDeleting && subIndex === currentFullText.length) {
+          setTimeout(() => setIsDeleting(true), 1000); // Pause at end
+        } else if (isDeleting && subIndex === 0) {
+          setIsDeleting(false);
+          setIndex((prev) => (prev + 1) % fullText.length);
+        }
+      },
+      isDeleting ? 100 : 150
+    );
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, isDeleting, index, fullText]);
+
+  // Cursor Blinking Effect
+  useEffect(() => {
+    const blinkInterval = setInterval(() => {
+      setBlink((prev) => !prev);
+    }, 500);
+    return () => clearInterval(blinkInterval);
+  }, []);
+
+  const socialLinks = [
+    {
+      icon: <Linkedin size={24} />,
+      href: "https://www.linkedin.com/in/pankaj-lohani-dev",
+      color: "bg-blue-600",
+    },
+    {
+      icon: <Github size={24} />,
+      href: "https://github.com/pankaj504",
+      color: "bg-gray-800",
+    },
+    {
+      icon: <Instagram size={24} />,
+      href: "https://www.instagram.com/panku.lohani/?utm_source=qr&igsh=eG9uNTZuMWdtcHZl#",
+      color: "bg-blue-400",
+    },
+    {
+      icon: <Mail size={24} />,
+      href: "mailto:pankajlohani123@gmail.com",
+      color: "bg-red-500",
+    },
+  ];
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background text-foreground"
     >
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            <span className="opacity-0 animate-fade-in block mb-2">Hi, I'm</span>
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-purple-400 to-pink-400 opacity-0 animate-fade-in-delay-1 inline-block">
-              Pankaj
-            </span>
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-primary ml-4 opacity-0 animate-fade-in-delay-2 inline-block">
-              Lohani
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3 leading-relaxed">
-            I enjoy transforming ideas into intuitive UIs using <span className="text-foreground font-medium">React</span>, <span className="text-foreground font-medium">Tailwind</span>,
-            and reusable component patterns — while continually improving my
-            skills through hands-on projects.
-          </p>
-          <div className="pt-8 opacity-0 animate-fade-in-delay-4">
-            <a href="#projects" className="cosmic-button text-lg px-8 py-3 shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)]">
-              View My Work
-            </a>
+      {/* Particle Background */}
+      <ParticleBackground />
+
+      <RevealOnScroll>
+        <div className="container mx-auto px-20 relative z-10">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-20">
+            {/* Left Column: Text & Content */}
+            <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+                Hi There, <br />
+                I'm{" "}
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 via-blue-600 to-primary">
+                  Pankaj Lohani
+                </span>
+              </h2>
+
+              <h3 className="text-2xl md:text-4xl font-semibold">
+                I Am Into <span className="text-red-700">{text}</span>
+                <span className={`${blink ? "opacity-100" : "opacity-0"} ml-1`}>
+                  |
+                </span>
+              </h3>
+
+              <div className="flex justify-center md:justify-start">
+                <a
+                  href="#about"
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-[#6d25e1] text-white rounded-full font-bold shadow-lg hover:bg-[#3b1575] transition-all transform hover:-translate-y-1"
+                >
+                  About Me <ArrowDown size={18} />
+                </a>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
+                {socialLinks.map((social, idx) => (
+                  <a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-black text-white rounded-full hover:bg-[#6d25e1] hover:text-white transition-all duration-300 transform hover:scale-100 shadow-[0_0_10px_rgba(0,0,0,0.2)]"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Avatar */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-end relative">
+              {/* Yellow Circle Background */}
+              <div className="relative w-64 h-64 md:w-96 md:h-96">
+                {/* <div className="absolute inset-0 bg-[#000000] rounded-full animate-pulse-subtle blur-xl opacity-80 scale-10"></div> */}
+                <div className="absolute inset-0 bg-[#9d05de] rounded-full  overflow-hidden border-1 border-white/10 flex items-end justify-center">
+                  <img
+                    src="/profile.jpg"
+                    alt="Pankaj Lohani"
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className=" absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-sm text-muted-foreground mb-2">Scroll</span>
-        <ArrowDown className="h-5 w-5 text-primary" />
-      </div>
+      </RevealOnScroll>
     </section>
   );
-};
-
-export default HeroSection;
+}

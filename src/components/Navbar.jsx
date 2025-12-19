@@ -1,106 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { useEffect, useState } from "react";
+import {
+  Home,
+  User,
+  Briefcase,
+  Code,
+  Mail,
+  Github,
+  Linkedin
+} from "lucide-react";
+import { TiSocialInstagram } from "react-icons/ti";
+import { LiaLinkedin } from "react-icons/lia";
+import { FaGithub } from "react-icons/fa";
 
-const navItems = [
-  {
-    name: "Home",
-    href: "#hero",
-  },
-  {
-    name: "About",
-    href: "#about",
-  },
-  {
-    name: "Skills",
-    href: "#skills",
-  },
-  {
-    name: "Projects",
-    href: "#projects",
-  },
-  {
-    name: "Contacts",
-    href: "#contact",
-  },
-];
-const Navbar = () => {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.screenY > 10);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  });
-  return (
-    <nav
-      className={cn(
-        "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 glass" : "py-5 bg-transparent"
-      )}
-    >
-      <div className="container flex items-center justify-between">
-        <a
-          className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
-        >
-          <span className="realtive z-10">
-            <span className="text-glow text-foreground">Pankaj</span> Portfolio
-          </span>
-        </a>
+  }, []);
 
-        {/* {desktop} */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navItems.map((item, key) => (
+  const navItems = [
+    { icon: <Home size={20} />, label: "Home", href: "#hero" },
+    { icon: <User size={20} />, label: "About", href: "#about" },
+    { icon: <Code size={20} />, label: "Skills", href: "#skills" },
+    { icon: <Briefcase size={20} />, label: "Projects", href: "#projects" },
+    { icon: <Mail size={20} />, label: "Contact", href: "#contact" },
+  ];
+
+  const socialItems = [
+    { icon: <FaGithub size={18} />, href: "https://github.com/pankaj504", label: "GitHub" },
+    { icon: <LiaLinkedin size={18} />, href: "https://www.linkedin.com/in/pankaj-lohani-dev", label: "LinkedIn" },
+    { icon: <TiSocialInstagram size={18} />, href: "https://www.instagram.com/panku.lohani/?utm_source=qr&igsh=eG9uNTZuMWdtcHZl#", label: "Instagram" },
+  ];
+
+  return (
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300">
+      <div className={`
+        flex items-center gap-2 px-3 py-3 rounded-2xl border transition-all duration-300
+        ${isScrolled
+          ? "glass bg-black/40 backdrop-blur-xl border-white/10 shadow-2xl"
+          : "bg-black/20 backdrop-blur-md border-white/5"}
+      `}>
+
+        {/* Navigation Items */}
+        <div className="flex items-center gap-1">
+          {navItems.map((item) => (
             <a
+              key={item.label}
               href={item.href}
-              key={key}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
+              className="relative group p-3 rounded-xl hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/5 transition-all duration-300 hover:-translate-y-1"
+              aria-label={item.label}
             >
-              {item.name}
+              <span className="text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
+                {item.icon}
+              </span>
+
+              <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-white/10 whitespace-nowrap backdrop-blur-sm">
+                {item.label}
+              </span>
             </a>
           ))}
-          <ThemeToggle />
         </div>
-        {/* mobile */}
-        <div className="md:hidden flex items-center gap-4">
-          <ThemeToggle />
-          <button
-            className="p-2 text-foreground z-50"
-            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"} aria-labelledby={isMenuOpen ? "Close Menu" : "Open Menu"}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+
+        {/* Divider */}
+        <div className="w-px h-6 bg-white/10 mx-2" />
+
+        {/* Social Items */}
+        <div className="flex items-center gap-1">
+          {socialItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group p-3 rounded-xl hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/5 transition-all duration-300 hover:-translate-y-1"
+              aria-label={item.label}
+            >
+              <span className="text-gray-400 group-hover:text-primary transition-colors">
+                {item.icon}
+              </span>
+            </a>
+          ))}
         </div>
-        <div
-          className={cn(
-            "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-            "transition-all duration-300 md:hidden",
-            isMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          )}
-        >
-          <div className="flex flex-col space-y-8 text-xl">
-            {navItems.map((item, key) => (
-              <a
-                href={item.href}
-                key={key}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </div>
+
       </div>
     </nav>
   );
-};
-export default Navbar;
+}
