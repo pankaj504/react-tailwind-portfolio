@@ -51,7 +51,7 @@ export const AboutSection = () => {
 
               <div className="pt-6">
                 <a
-                  href="/PankuResume.pdf"
+                  href="/Pankaj_Lohani_CV.pdf"
                   className="inline-flex items-center gap-2 px-8 py-3 bg-violet-700 hover:bg-violet-800 text-white rounded-lg font-bold transition-all shadow-lg hover:-translate-y-1"
                 >
                   Resume <ArrowRight size={20} />

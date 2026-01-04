@@ -13,10 +13,27 @@ import {
 } from "lucide-react";
 import { FaHtml5, FaReact } from "react-icons/fa6";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiAppwrite, SiCss3, SiFastapi, SiMysql, SiTailwindcss } from "react-icons/si";
+import {
+  SiAppwrite,
+  SiCss3,
+  SiFastapi,
+  SiIntellijidea,
+  SiMysql,
+  SiPostman,
+  SiTailwindcss,
+  SiVscodium,
+} from "react-icons/si";
+import { DiJava } from "react-icons/di";
+import { VscVscode } from "react-icons/vsc";
 
 export const SkillsSection = () => {
   const skills = [
+    {
+      name: "Java",
+      icon: <DiJava size={40} />,
+      color: "#009688",
+      category: "backend",
+    },
     {
       name: "ReactJS",
       icon: <FaReact size={40} />,
@@ -24,18 +41,6 @@ export const SkillsSection = () => {
       category: "frontend",
     },
 
-    {
-      name: "MySql",
-      icon: <SiMysql size={40} />,
-      color: "#47A248",
-      category: "backend",
-    },
-    {
-      name: "TailwindCSS",
-      icon: <SiTailwindcss size={40} />,
-      color: "#38B2AC",
-      category: "frontend",
-    },
     {
       name: "JavaScript",
       icon: <IoLogoJavascript size={40} />,
@@ -54,7 +59,6 @@ export const SkillsSection = () => {
       color: "#1572B6",
       category: "frontend",
     },
-
     {
       name: "Github",
       icon: <FaGithubSquare size={40} />,
@@ -62,18 +66,35 @@ export const SkillsSection = () => {
       category: "tools",
     },
     {
-      name: "Appwrite",
-      icon: <SiAppwrite size={40} />,
+      name: "MySql",
+      icon: <SiMysql size={40} />,
       color: "#F02E65",
       category: "backend",
     },
     {
-      name: "FastAPI",
+      name: "RestAPI",
       icon: <SiFastapi size={40} />,
       color: "#009688",
       category: "backend",
     },
-
+    {
+      name: "Vs Code",
+      icon: <VscVscode size={40} />,
+      color: "#009688",
+      category: "backend",
+    },
+    {
+      name: "Intellijidea",
+      icon: <SiIntellijidea size={40} />,
+      color: "#009688",
+      category: "backend",
+    },
+    {
+      name: "Postman",
+      icon: <SiPostman size={40} />,
+      color: "#009688",
+      category: "backend",
+    },
     // Add more as needed to fill the grid
   ];
 
